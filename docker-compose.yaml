@@ -1,0 +1,15 @@
+services:
+  epg_api:
+    container_name: epg_api
+    image: epg_api
+    ports:
+      - "8000:8000"
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - type: bind
+        source: ./resources
+        target: /code/resources
+volumes:
+     resources: 
