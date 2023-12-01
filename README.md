@@ -1,6 +1,6 @@
-# Video-MOS Clusterer
+# FastAPI implementation of an SKLearn pipeline
 
-This is a FastAPI based API template for putting sklearn pipeline based predictors into production.
+This is a FastAPI based API template for putting sklearn pipeline-based predictors into production.
 
 ## Installation
 
@@ -37,11 +37,9 @@ The swagger docs are located at [http://127.0.0.1:8000/docs](http://127.0.0.1:80
 
 ## TODO
 
- * Find memory hoarding problem and solve it.
- * Check prediction of individual data points for issues. Probably a bug somewhere.
- * Installable and encrypted standalone module for Ubuntu.
- * Add model generation on start-up.
+ * Change Swagger parameters
+ * Check adaptability for prediction/classification
+ * Logging
+ * Generation of model from docker start-up/environment variable
  * Add endpoints to change the hyperparameters of the model.
- * Use sklearn pipeline for full model.
- * Change UMAP online.
- * Remove -1 ids from return values of API
+ * Definition of model on environment variables.
