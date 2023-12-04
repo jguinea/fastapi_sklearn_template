@@ -42,11 +42,11 @@ class MyModel:
         if self.trained:
             self.pipe = load_obj("pipeline")
         else:
-            model=get_model(self.X).set_params(config("pipeline_params"))
+            self.pipe=get_model(self.X).set_params(config("pipeline_params"))
         return
     
-    def train_model(self):
-        if (not self.pretrained):
+    def load_model(self):
+        if (not self.trained):
             self.pipe.fit(self.X,self.y)
             self.trained = True
             return

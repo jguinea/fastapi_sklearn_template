@@ -37,6 +37,7 @@ The swagger docs are located at [http://127.0.0.1:8000/docs](http://127.0.0.1:80
 
 ## TODO
 
+ * Encapsulate model creation
  * Change Swagger parameters
  * Check adaptability for prediction/classification
  * Logging

@@ -8,29 +8,28 @@ from helper.utils import get_categories
 import os
 from fastapi.encoders import jsonable_encoder
 
-categories_dict = get_categories(pd.read_csv(os.path.join(config("DATA_PATH"), "X.csv"), index_col=0))
+
+categories_input = get_categories(pd.read_csv(os.path.join(config("DATA_PATH"), "X.csv"), index_col=0))
+categories_output = get_categories(pd.read_csv(os.path.join(config("DATA_PATH"), "y.csv"), index_col=0))
 
 
-Item = create_model("ItemBaseModel", **categories_dict)
+InputItem = create_model("ItemBaseModel", **categories_input)
+OutputItem = create_model("ItemBaseModel", **categories_output)
     
 
-class ItemList(BaseModel):
-    data: List[Item]
 
 
 app = FastAPI()
 model = MyModel(trained=True)
 
 
-
-@app.get("/train_model")
-async def train_model():
-    model.train_model()
-    return {"message": "Training done!"}
+@app.on_event("startup")
+def load_model():
+    model.load_model()
 
 
 @app.post("/predict_label")
-async def predict_label(item: Item):
+async def predict_label(item: InputItem) -> OutputItem:
     item = pd.DataFrame([jsonable_encoder(item)])
     label = model.predict_label(item)
     label = label.tolist()
@@ -43,7 +42,7 @@ async def test():
 
 
 @app.post("/predict_labels")
-async def predict_labels(data: ItemList):
+async def predict_labels(data: list[InputItem]) -> OutputItem:
     print(jsonable_encoder(data))
     data = pd.DataFrame(jsonable_encoder(data)["data"])
     print(data)
