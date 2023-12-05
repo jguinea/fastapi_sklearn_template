@@ -10,6 +10,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
+import logging
 
 def get_model(X):
     categorical_features = list(X.dtypes[X.dtypes == 'category'].index)
@@ -53,10 +54,6 @@ class MyModel:
         else:
             return
     
-    def predict_label(self, y_new):
-        y_pred = self.pipe.predict(y_new)
-        return y_pred
-    
-    def predict_labels(self, y_new):
+    def predict(self, y_new):
         y_pred = self.pipe.predict(y_new)
         return y_pred

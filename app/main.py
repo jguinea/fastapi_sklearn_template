@@ -7,7 +7,9 @@ from decouple import config
 from helper.utils import get_categories
 import os
 from fastapi.encoders import jsonable_encoder
+import logging
 
+logging.basicConfig(level=logging.WARN)
 
 categories_input = get_categories(pd.read_csv(os.path.join(config("DATA_PATH"), "X.csv"), index_col=0))
 categories_output = get_categories(pd.read_csv(os.path.join(config("DATA_PATH"), "y.csv"), index_col=0))
@@ -29,11 +31,15 @@ def load_model():
 
 
 @app.post("/predict_label")
-async def predict_label(item: InputItem) -> OutputItem:
+async def predict(item: InputItem) -> OutputItem:
+    logging.debug(f"input={item}")
     item = pd.DataFrame([jsonable_encoder(item)])
-    label = model.predict_label(item)
-    label = label.tolist()
-    return jsonable_encoder(label)
+    logging.debug(f"formated input={item}")
+    label = model.predict(item)
+    logging.debug(f"label={label}")
+    formated_label = dict(enumerate(label))
+    logging.debug(f"formated label={formated_label}")
+    return jsonable_encoder(formated_label)
 
 
 @app.get("/test")
@@ -42,10 +48,10 @@ async def test():
 
 
 @app.post("/predict_labels")
-async def predict_labels(data: list[InputItem]) -> OutputItem:
-    print(jsonable_encoder(data))
-    data = pd.DataFrame(jsonable_encoder(data)["data"])
-    print(data)
-    labels = model.predict_label(data)
-    labels = labels.tolist()
-    return jsonable_encoder(labels)
+async def predict_labels(data: list[InputItem]) -> list[OutputItem]:
+    data = pd.DataFrame(jsonable_encoder(data))
+    labels = model.predict(data)
+    logging.debug(f'model output={labels}')
+    formated_labels = [{ind: label} for ind, label in enumerate(labels)]
+    logging.debug(f"formated output={formated_labels}")
+    return jsonable_encoder(formated_labels)

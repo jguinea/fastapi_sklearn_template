@@ -3,6 +3,7 @@ import numpy as np
 import pickle
 from decouple import config
 
+
 model_path = config("MODEL_PATH")
 def save_obj(obj, name):
     with open(model_path+"/"+ name + '.pkl', 'wb') as f:

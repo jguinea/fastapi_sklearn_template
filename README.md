@@ -42,7 +42,6 @@ The swagger docs are located at [http://127.0.0.1:8000/docs](http://127.0.0.1:80
  * Encapsulate model creation
  * Change Swagger parameters
  * Check adaptability for prediction/classification
- * Logging
  * Generation of model from docker start-up/environment variable
  * Add endpoints to change the hyperparameters of the model.
  * Definition of model on environment variables.
