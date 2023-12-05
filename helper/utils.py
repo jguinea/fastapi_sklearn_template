@@ -1,14 +1,15 @@
 import pandas as pd
 import numpy as np
 import pickle
+from decouple import config
 
-
+model_path = config("MODEL_PATH")
 def save_obj(obj, name):
-    with open('resources/objects/'+ name + '.pkl', 'wb') as f:
+    with open(model_path+"/"+ name + '.pkl', 'wb') as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
 
 def load_obj(name):
-    with open('resources/objects/' + name + '.pkl', 'rb') as f:
+    with open(model_path+"/" + name + '.pkl', 'rb') as f:
         return pickle.load(f)
 
 def get_categories(df):
