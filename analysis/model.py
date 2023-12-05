@@ -10,6 +10,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestClassifier
+
 import logging
 
 def get_model(X):

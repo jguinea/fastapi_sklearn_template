@@ -4,7 +4,7 @@ This is a FastAPI based API template for putting sklearn pipeline-based predicto
 
 ## Installation
 
-The provided notebook /analysis/generate_model.ipynb can be used to generate the resource paths needed as well as a dummy classifier for the API.
+The provided [notebook](analysis/generate_model.ipynb) can be used to generate the resource paths needed as well as a dummy classifier for the API.
 
 If installing in conda on Windows:
 
