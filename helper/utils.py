@@ -14,6 +14,9 @@ def load_obj(name):
         return pickle.load(f)
 
 def get_categories(df):
+    # generates a dict with the names, types and an example of each column of a df.
+    # if the data is not numeric it is classified as a string!!
+    # if datetime or categorical or any non np numeric type it will all be a string
     categories_dict = {}
     categories_raw = df.dtypes
     example_data = df.sample()

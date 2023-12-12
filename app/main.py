@@ -11,6 +11,7 @@ import logging
 
 logging.basicConfig(level=logging.WARN)
 
+# Creation of input variables for basemodels of input and output.
 categories_input = get_categories(pd.read_csv(os.path.join(config("DATA_PATH"), "X.csv"), index_col=0))
 categories_output = get_categories(pd.read_csv(os.path.join(config("DATA_PATH"), "y.csv"), index_col=0))
 
@@ -21,7 +22,20 @@ OutputItem = create_model("ItemBaseModel", **categories_output)
 
 
 
-app = FastAPI()
+app = FastAPI(
+    title="Sklearn pipeline deployment",
+    description="REST API for connection to ML models encapsulated as Sklearn pipelines.",
+    summary="Currently deploying a classifier. \n Three endpoints are exposed: one for predicting one label, one for predicting an array of labels and a testing endpoint.",
+    version="0.0.1",
+    contact={
+        "name": "GATV/SSR UPM",
+        "email": "javier.guinea.perez@upm.es",
+    },
+    license_info={
+        "name": "Apache 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+    },)
+
 model = MyModel(trained=True)
 
 
